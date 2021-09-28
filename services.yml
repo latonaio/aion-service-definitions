@@ -1,0 +1,59 @@
+devices:
+  hera:
+    addr: xxx.xxx.xxx.xxx
+    aionHome: /var/lib/aion
+  iris:
+    addr: xxx.xxx.xxx.xxx
+    aionHome: /var/lib/aion
+microservices:
+  kube-etcd-sentinel:
+    startup: yes
+    always: yes
+    withoutKanban: yes
+    serviceAccount: controller-serviceaccount
+    env:
+      MY_NODE_NAME: YOUR_DEVICE_NAME
+  direct-next-service:
+    scale: 1
+    startup: yes
+    always: yes
+    nextService:
+      default:
+        - name: k8s-deployment-controller
+      delete:
+        - name: delete-container-image-from-edge
+      status:
+        - name: get-response-of-container-deployment
+  k8s-deployment-controller:
+    scale: 1
+    always: yes
+    serviceAccount: controller-serviceaccount
+    privileged: true
+    volumeMountPathList:
+      - /var/run/docker.sock:/var/run/docker.sock
+    env:
+      REGISTRY_USER: aion
+      REGISTRY_PASSWORD: aion
+    nextService:
+      default:
+        - name: get-response-of-container-deployment
+  delete-container-image-from-edge:
+    scale: 1
+    multiple: yes
+    serviceAccount: controller-serviceaccount
+    env:
+      REGISTRY_USER: aion
+      REGISTRY_PASSWORD: aion
+    nextService:
+      default:
+        - name: get-response-of-container-deployment
+  get-response-of-container-deployment:
+    scale: 1
+    always: yes
+  kube-etcd-sentinel:
+    startup: yes
+    always: yes
+    withoutKanban: yes
+    serviceAccount: controller-serviceaccount
+    env:
+      MY_NODE_NAME: YOUR_DEVICE_NAME
