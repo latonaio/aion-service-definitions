@@ -32,8 +32,8 @@ microservices:
     volumeMountPathList:
       - /var/run/docker.sock:/var/run/docker.sock
     env:
-      REGISTRY_USER: aion
-      REGISTRY_PASSWORD: aion
+      REGISTRY_USER: XXXX
+      REGISTRY_PASSWORD: XXXX
     nextService:
       default:
         - name: get-response-of-container-deployment
@@ -42,8 +42,8 @@ microservices:
     multiple: yes
     serviceAccount: controller-serviceaccount
     env:
-      REGISTRY_USER: aion
-      REGISTRY_PASSWORD: aion
+      REGISTRY_USER: XXXX
+      REGISTRY_PASSWORD: XXXX
     nextService:
       default:
         - name: get-response-of-container-deployment
