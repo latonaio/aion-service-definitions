@@ -9,7 +9,7 @@ aion-coreについては[こちら](https://github.com/latonaio/aion-core)をご
 
 ## services.ymlの書き方  
 hera、irisはデバイスの名前、titaniadb-sentinelはマイクロサービスの名前です。
-
+本レポジトリには、services.ymlのサンプルとして、コンテナデプロイメントシステムのために必要なマイクロサービスの設定ファイルが含まれています。
 ```
 devices:
   hera:
@@ -27,3 +27,4 @@ microservices:
     env:
       MY_NODE_NAME: YOUR_DEVICE_NAME
 ```
+

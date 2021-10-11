@@ -50,7 +50,7 @@ microservices:
   get-response-of-container-deployment:
     scale: 1
     always: yes
-  kube-etcd-sentinel:
+  titaniadb-sentinel:
     startup: yes
     always: yes
     withoutKanban: yes
