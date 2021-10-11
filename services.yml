@@ -6,7 +6,7 @@ devices:
     addr: xxx.xxx.xxx.xxx
     aionHome: /var/lib/aion
 microservices:
-  kube-etcd-sentinel:
+  titaniadb-sentinel:
     startup: yes
     always: yes
     withoutKanban: yes
