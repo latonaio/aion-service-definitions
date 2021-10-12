@@ -5,11 +5,12 @@ aion-coreについては[こちら](https://github.com/latonaio/aion-core)をご
 
 ## 概要  
 [aion-coreのセットアップ](https://github.com/latonaio/aion-core)で作成したDocker Imagesからこれらのマニフェストファイルを元に特定の関連リソースを構成します。  
-[aion-core-manifests](https://github.com/latonaio/aion-core-manifests) は、aion-core および AION 関連リソースをまとめてdefault.yml に記載していますが、aion-service-definitions は、services.yml へ特定のリソースを記載することで、デプロイ、稼働をさせることができます。  
+[aion-core-manifests](https://github.com/latonaio/aion-core-manifests) では、aion-core および AION 関連リソースをまとめてdefault.yml に記載していますが、aion-service-definitions は、それらとは別に、services.yml へ特定のリソースを記載することで、プロジェクト固有のアプリケーション・システム・マイクロサービス等のデプロイ、稼働をさせることができます。  
 
 ## services.ymlの書き方  
-hera、irisはデバイスの名前、titaniadb-sentinelはマイクロサービスの名前です。
-本レポジトリには、services.ymlのサンプルとして、コンテナデプロイメントシステムのために必要なマイクロサービスの設定ファイルが含まれています。
+本レポジトリには、services.ymlのサンプルとして、コンテナデプロイメントシステムのために必要なマイクロサービスの設定ファイルが含まれています。  
+services.ymlの記述様式には、エッジアプリケーション・エッジシステムとして求められる固有の様式が、含まれます。  
+本サンプルファイルにおいて、hera、irisはデバイスの名前、addrはエッジネットワーククラスター内におけるそれぞれのデバイスのIP、titaniadb-sentinelはマイクロサービスの名前です。
 ```
 devices:
   hera:
