@@ -3,9 +3,18 @@ aion-service-definitions は、aion-core 上で機能する特定のリソース
 
 aion-coreについては[こちら](https://github.com/latonaio/aion-core)をご覧ください。  
 
-## 概要  
-[aion-coreのセットアップ](https://github.com/latonaio/aion-core)で作成したDocker Imagesからこれらのマニフェストファイルを元に特定の関連リソースを構成します。  
-[aion-core-manifests](https://github.com/latonaio/aion-core-manifests) では、aion-core および AION 関連リソースをまとめてdefault.yml に記載していますが、aion-service-definitions は、それらとは別に、services.yml へ特定のリソースを記載することで、プロジェクト固有のアプリケーション・システム・マイクロサービス等のデプロイ、稼働をさせることができます。  
+## 前提条件  
+[aion-coreのセットアップ](https://github.com/latonaio/aion-core)でaion-coreをセットアップします。  
+[aion-core-manifests](https://github.com/latonaio/aion-core-manifests) では、aion-core および AION 関連リソースをまとめて、template>各サービスのymlファイル（⇒マニフェスト生成後のサンプルファイルとしては default.yml） に記載していますが、aion-service-definitions は、それらとは別に、services.yml へ特定のリソースを記載することで、プロジェクト固有のアプリケーション・システム・マイクロサービス等のデプロイ、稼働をさせることができます。  
+
+## aion-service-definitionsで定義されたマイクロサービスの立ち上げ・稼働  
+aion-service-definitionsのservices.ymlで定義されたマイクロサービスは、AION Core の Service Broker により立ち上げ・稼働が制御されます。  
+
+[aion-core](https://github.com/latonaio/aion-core)のcmd>service-broker下のDockerfile-service-brokerに、本レポジトリに該当するマイクロサービスを読み込むためのコンフィグ設定が記載されています。  
+
+```
+CMD ["./service-broker", "-c", "config/services.yml"]
+```
 
 ## services.ymlの書き方  
 本レポジトリには、services.ymlのサンプルとして、コンテナデプロイメントシステムのために必要なマイクロサービスの設定ファイルが含まれています。  
