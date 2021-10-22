@@ -16,7 +16,27 @@ aion-service-definitionsのservices.ymlで定義されたマイクロサービ�
 CMD ["./service-broker", "-c", "config/services.yml"]
 ```
 
-## services.ymlの書き方  
+## services.ymlの書き方
+
+### AION における 典型的な services.yml の書き方 ###
+AION では、マイクロサービスのservices.ymlの典型的な書き方として、次のものがあります。  
+
+* scale     ： Podを複数立てるときに、指定された個数までスケールします（"1"だとスケールしない設定になります）   
+
+* startup   ： "yes"の場合、aion-corer の service-broker 起動時に同時にPodを起動させます。AIONでは、Podは原則常時起動（="yes）です。これは、エッジ端末において、常にPodがマイクロサービスとして待機状態であることを示します。AIONでは、原則として各マイクロサービスのPodを待機(もしくは稼働)状態にさせておいて、必要な場合に処理実行させる方式が採用されています。  
+
+* always    ： Podが停止すると、常にPodを再起動させる機能です。初期値は全て"yes"になっています。   
+
+* env       ： 環境変数を直接指定します。マイクロサービス固有の環境変数の例としては、接続先デバイス名、認証鍵、その他のNW情報、が挙げられます。  
+
+* privileged： Podを特権付きで動かすときに使用されます。  
+
+* volumeMountPathList： 特定のマイクロサービスにおけるデータの永続化のために必要になります。書き方の例としては次の通りです。
+```
+  - /var/run/docker.sock:/var/run/docker.sock　":"より左側はPodのパスです。":"より右側はホスト側のパスです。
+```
+
+### services.yml の サンプル ###
 本レポジトリには、services.ymlのサンプルとして、コンテナデプロイメントシステムのために必要なマイクロサービスの設定ファイルが含まれています。  
 services.ymlの記述様式には、エッジアプリケーション・エッジシステムとして求められる固有の様式が、含まれます。  
 本サンプルファイルにおいて、hera、irisはデバイスの名前、addrはエッジネットワーククラスター内におけるそれぞれのデバイスのIP、titaniadb-sentinelはマイクロサービスの名前です。
@@ -30,11 +50,9 @@ devices:
     aionHome: /var/lib/aion
 microservices:
   titaniadb-sentinel:
+    scale: 1
     startup: yes
     always: yes
-    withoutKanban: yes
-    serviceAccount: controller-serviceaccount
     env:
       MY_NODE_NAME: YOUR_DEVICE_NAME
 ```
-
