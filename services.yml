@@ -6,24 +6,6 @@ devices:
     addr: xxx.xxx.xxx.xxx
     aionHome: /var/lib/aion
 microservices:
-  titaniadb-sentinel:
-    startup: yes
-    always: yes
-    withoutKanban: yes
-    serviceAccount: controller-serviceaccount
-    env:
-      MY_NODE_NAME: YOUR_DEVICE_NAME
-  direct-next-service:
-    scale: 1
-    startup: yes
-    always: yes
-    nextService:
-      default:
-        - name: k8s-deployment-controller
-      delete:
-        - name: delete-container-image-from-edge
-      status:
-        - name: get-response-of-container-deployment
   k8s-deployment-controller:
     scale: 1
     always: yes
@@ -37,6 +19,13 @@ microservices:
     nextService:
       default:
         - name: get-response-of-container-deployment
+  titaniadb-sentinel:
+    startup: yes
+    always: yes
+    withoutKanban: yes
+    serviceAccount: controller-serviceaccount
+    env:
+      MY_NODE_NAME: YOUR_DEVICE_NAME
   delete-container-image-from-edge:
     scale: 1
     multiple: yes
@@ -50,10 +39,3 @@ microservices:
   get-response-of-container-deployment:
     scale: 1
     always: yes
-  titaniadb-sentinel:
-    startup: yes
-    always: yes
-    withoutKanban: yes
-    serviceAccount: controller-serviceaccount
-    env:
-      MY_NODE_NAME: YOUR_DEVICE_NAME
