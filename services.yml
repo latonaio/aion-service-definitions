@@ -20,9 +20,9 @@ microservices:
       default:
         - name: get-response-of-container-deployment
   titaniadb-sentinel:
+    scale: 1
     startup: yes
     always: yes
-    withoutKanban: yes
     serviceAccount: controller-serviceaccount
     env:
       MY_NODE_NAME: YOUR_DEVICE_NAME
