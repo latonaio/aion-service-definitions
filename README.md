@@ -15,7 +15,7 @@ AIONプラットフォームのあるエッジデバイス内において、Kube
 * 個別マイクロサービス  のYamlファイル  
 
 
-![kube-yml](docs/structure_of_kube_yamls_aion.png)
+![kube-yml](docs/structure_of_kubernets_yamls.png)
 
 ### AION の Kubernetes Yaml ファイルの所在
 それぞれの Yamlファイルは、以下のレポジトリにあります。  
