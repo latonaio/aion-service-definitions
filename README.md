@@ -3,7 +3,7 @@ aion-service-definitions は、aion-core 上で機能する特定のリソース
 
 aion-coreについては[こちら](https://github.com/latonaio/aion-core)をご覧ください。  
 
-### AION の Kubernetes Yaml ファイルの構造（エッジデバイス内） 
+## AION の Kubernetes Yaml ファイルの構造（エッジデバイス内） 
 AIONプラットフォームのあるエッジデバイス内において、Kubernetes Yaml ファイルは、次の領域に分かれています。
 
 * Kubernetes コアのYamlファイル  
@@ -17,7 +17,7 @@ AIONプラットフォームのあるエッジデバイス内において、Kube
 
 ![kube-yml](docs/structure_of_kubernets_yamls.png)
 
-### AION の Kubernetes Yaml ファイルの所在
+## AION の Kubernetes Yaml ファイルの所在
 それぞれの Yamlファイルは、以下のレポジトリにあります。  
 
 * Kubernetes コアのYamlファイル  >>>  [aion-core-manifests](https://github.com/latonaio/aion-core-manifests)  
@@ -29,7 +29,7 @@ AIONプラットフォームのあるエッジデバイス内において、Kube
 * 個別マイクロサービス  のYamlファイル    >>>  [aion-service-definitions](https://github.com/latonaio/aion-service-definitions)
 
 
-## 前提条件  
+## 設定の前提条件  
 [aion-coreのセットアップ](https://github.com/latonaio/aion-core)でaion-coreをセットアップします。  
 [aion-core-manifests](https://github.com/latonaio/aion-core-manifests) では、aion-core および AION 関連リソースをまとめて、template>各サービスのymlファイル（⇒マニフェスト生成後のサンプルファイルとしては default.yml） に記載していますが、aion-service-definitions は、それらとは別に、services.yml へ特定のリソースを記載することで、プロジェクト固有のアプリケーション・システム・マイクロサービス等のデプロイ、稼働をさせることができます。  
 
@@ -63,9 +63,8 @@ AION では、マイクロサービスのservices.ymlの典型的な書き方と
 ```
 
 ### services.yml の サンプル ###
-本レポジトリには、services.ymlのサンプルとして、コンテナデプロイメントシステムのために必要なマイクロサービスの設定ファイルが含まれています。  
+本レポジトリには、services.ymlのサンプルとして、Azure Face API を利用したエッジ顔認証システムのために必要なマイクロサービス群の設定ファイルが含まれています。  
 services.ymlの記述様式には、エッジアプリケーション・エッジシステムとして求められる固有の様式が、含まれます。  
-本サンプルファイルにおいて、hera、irisはデバイスの名前、addrはエッジネットワーククラスター内におけるそれぞれのデバイスのIP、titaniadb-sentinelはマイクロサービスの名前です。
 ```
 devices:
   hera:
