@@ -66,18 +66,91 @@ AION では、マイクロサービスのservices.ymlの典型的な書き方と
 本レポジトリには、services.ymlのサンプルとして、Azure Face API を利用したエッジ顔認証システムのために必要なマイクロサービス群の設定ファイルが含まれています。  
 services.ymlの記述様式には、エッジアプリケーション・エッジシステムとして求められる固有の様式が、含まれます。  
 ```
-devices:
-  hera:
-    addr: xxx.xxx.xxx.xxx
-    aionHome: /var/lib/aion
-  iris:
-    addr: xxx.xxx.xxx.xxx
-    aionHome: /var/lib/aion
 microservices:
-  titaniadb-sentinel:
+  azure-face-api-identifier-kube:
+    startup: yes
+    always: yes
+    scale: 1
+    env:
+      MYSQL_USER: xxxxxx
+      MYSQL_HOST: mysql
+      MYSQL_PASSWORD: xxxxxxxx
+      MYSQL_DB: XXXXXXXXX
+      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/xxxxxxx
+      QUEUE_ORIGIN: azure-face-api-identifier-kube-queue
+      QUEUE_TO: get-response-of-face-api-kube-queue
+      QUEUE_TO_FOR_LOG: send-data-to-azure-iot-hub-queue
+  azure-face-api-registrator-kube:
+    startup: yes
+    always: yes
+    scale: 1
+    env:
+      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/xxxxxxx
+      QUEUE_ORIGIN: azure-face-api-registrator-kube-queue
+      QUEUE_TO: register-face-to-guest-table-kube-queue
+  register-face-to-guest-table-kube:
+    startup: yes
+    always: yes
+    scale: 1
+    env:
+      MYSQL_USER: xxxxxx
+      MYSQL_HOST: mysql
+      MYSQL_PASSWORD: xxxxxxxx
+      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/xxxxxxx
+      QUEUE_ORIGIN: register-face-to-guest-table-kube-queue
+  ui-backend-for-xxxxxxx:
     scale: 1
     startup: yes
     always: yes
+    network: NodePort
+    ports:
+      - name: ui-backend
+        protocol: TCP
+        port: 30088
+        nodePort: 30088
     env:
-      MY_NODE_NAME: YOUR_DEVICE_NAME
+      MYSQL_USER: xxxxxx
+      MYSQL_HOST: mysql
+      MYSQL_PASSWORD: xxxxxxxx
+      MYSQL_PORT: 3306
+  ui-frontend-for-xxxxxxx:
+    scale: 1
+    startup: yes
+    always: yes
+    network: NodePort
+    ports:
+      - name: ui-frontend
+        protocol: TCP
+        port: 3000
+        nodePort: 30040
+  ui-frontend-for-xxxxxxx-mobile:
+    scale: 1
+    startup: yes
+    always: yes
+    network: NodePort
+    ports:
+      - name: ui-front-mobile
+        protocol: TCP
+        port: 3000
+        nodePort: 30044
+  load-balancer-for-movable-devices:
+    scale: 1
+    startup: yes
+    always: yes
+    network: NodePort
+    ports:
+      - name: proxy
+        protocol: TCP
+        port: 30600
+        nodePort: 30600
+  authenticator:
+    startup: yes
+    always: yes
+    scale: 1
+    network: NodePort
+    ports:
+    - name: authenticator
+      protocol: TCP
+      port: 50500
+      nodePort: 30500
 ```

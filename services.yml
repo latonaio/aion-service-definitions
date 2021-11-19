@@ -8,8 +8,8 @@ microservices:
       MYSQL_HOST: mysql
       MYSQL_PASSWORD: xxxxxxxx
       MYSQL_DB: XXXXXXXXX
-      RABBITMQ_URL: amqp://xxxxx:xxxxx@rabbitmq:5672/xxxxxxx
-      QUEUE_FROM: azure-face-api-identifier-kube-queue
+      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/xxxxxxx
+      QUEUE_ORIGIN: azure-face-api-identifier-kube-queue
       QUEUE_TO: get-response-of-face-api-kube-queue
       QUEUE_TO_FOR_LOG: send-data-to-azure-iot-hub-queue
   azure-face-api-registrator-kube:
@@ -17,8 +17,8 @@ microservices:
     always: yes
     scale: 1
     env:
-      RABBITMQ_URL: amqp://xxxxx:xxxxx@rabbitmq:5672/xxxxxxx
-      QUEUE_FROM: azure-face-api-registrator-kube-queue
+      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/xxxxxxx
+      QUEUE_ORIGIN: azure-face-api-registrator-kube-queue
       QUEUE_TO: register-face-to-guest-table-kube-queue
   register-face-to-guest-table-kube:
     startup: yes
@@ -28,8 +28,8 @@ microservices:
       MYSQL_USER: xxxxxx
       MYSQL_HOST: mysql
       MYSQL_PASSWORD: xxxxxxxx
-      RABBITMQ_URL: amqp://xxxxx:xxxxx@rabbitmq:5672/xxxxxxx
-      QUEUE_FROM: register-face-to-guest-table-kube-queue
+      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/xxxxxxx
+      QUEUE_ORIGIN: register-face-to-guest-table-kube-queue
   ui-backend-for-xxxxxxx:
     scale: 1
     startup: yes
